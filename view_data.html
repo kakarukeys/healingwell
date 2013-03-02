@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>View data</title>
+		<link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.1/css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+	</head>
+	<body>
+		<div style="margin-left:20px;"></div>
+
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js "></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/mustache.js/0.7.2/mustache.min.js "></script>
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.4/underscore-min.js "></script>
+
+		<script type="text/x-mustache" id="list_posts">
+		 	<ol>
+		 		{{ #data }}
+		 		<li>
+		 			<table class="table table-striped">
+		 				<tbody>
+		 					<tr>
+		 						<td>page_url</td>
+		 						<td>{{ #auto_link }}{{ page_url }}{{ /auto_link }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>section_title</td>
+		 						<td>{{ section_title }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>section_url</td>
+		 						<td>{{ #auto_link }}{{ section_url }}{{ /auto_link }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>thread_title</td>
+		 						<td>{{ thread_title }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>thread_url</td>
+		 						<td>{{ #auto_link }}{{ thread_url }}{{ /auto_link }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>post_url</td>
+		 						<td>{{ #auto_link }}{{ post_url }}{{ /auto_link }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>post_author</td>
+		 						<td>{{ post_author }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>post_author_url</td>
+		 						<td>{{ #auto_link }}{{ post_author_url }}{{ /auto_link }}</td>
+		 					</tr>
+		 					<tr>
+		 						<td>post_date</td>
+		 						<td>{{ post_date }}</td>
+		 					</tr>
+		 				</tbody>
+		 			</table>
+
+ 					<h5>post_content</h5>
+ 					<blockquote>{{{ post_content }}}</blockquote>
+		 		</li>
+		 		{{/data}}
+		 	</ol>
+		</script>
+
+		<script>
+			$.getJSON('scraped_data.json', function(data) {
+				var template = Mustache.compile($("#list_posts").html());
+				$("div").append(template({
+					data: data,
+					auto_link: function() {
+						return function (text, render) {
+							var url = render(text);
+					      	return "<a href=\""+ url + "\" target=\"_blank\">" + url + "</a>";
+					    };
+					}
+				}));
+			});
+		</script>
+	</body>
+</html>

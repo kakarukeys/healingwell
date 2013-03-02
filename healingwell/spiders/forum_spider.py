@@ -24,8 +24,11 @@ def parse_datetime(dt_string):
 class ForumSpider(CrawlSpider):
     name = "healingwell"
     allowed_domains = ["healingwell.com"]
-    start_urls = ["http://www.healingwell.com/community/default.aspx?f=45&m=2478305&p=2"]
-    rules = [Rule(SgmlLinkExtractor(allow=['/community/default\.aspx\?f=45&']), 'parse_thread')]
+    start_urls = ["http://www.healingwell.com/community/default.aspx?f=45&p=84&x=100&ord=ld"]
+    rules = [
+        Rule(SgmlLinkExtractor(allow=['/community/default\.aspx\?f=45&'], restrict_xpaths=("//td[starts-with(@class,'msgSm')]",))),
+        Rule(SgmlLinkExtractor(allow=['/community/default\.aspx\?f=45&'], restrict_xpaths=("//td[starts-with(@class,'msgTopic ')]",)), 'parse_thread'),
+    ]
 
     def parse_thread(self, response):
         x = HtmlXPathSelector(response)
@@ -51,5 +54,6 @@ class ForumSpider(CrawlSpider):
                 re="Posted (.*)"
             )
             l2.add_xpath("post_content", ".//div[@class='PostMessageBody']/node()")
+            l2.add_xpath("post_content", ".//div[@class='PostBoxWrapper']/node()[not(@class='PostMessageBody')][not(@class='PostToTopLink')]")
 
             yield l2.load_item()

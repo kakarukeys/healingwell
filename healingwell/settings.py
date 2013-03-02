@@ -13,3 +13,7 @@ NEWSPIDER_MODULE = 'healingwell.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'healingwell (+http://www.yourdomain.com)'
+
+ITEM_PIPELINES = [
+    'healingwell.pipelines.HealingwellPipeline',
+]
