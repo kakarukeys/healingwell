@@ -1,5 +1,5 @@
 POSTGRES = {
-    "database": "healingwell_dev",
+    "database": "healingwell",
     "user": "python",
     "password": "abc123",
 }

@@ -1,0 +1,10 @@
+Project roadmap is written in evernote, this is the backlog:
+
+NER
+comments
+unit-tests
+split between dev and prod
+allow for setting up the project for a new developer
+respect robot rules
+continuous improvement: make sure no error during crawling and all extractions are done correctly
+continuous improvement: support python 3+
