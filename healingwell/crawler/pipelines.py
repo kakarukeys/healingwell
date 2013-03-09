@@ -1,11 +1,6 @@
 import psycopg2
 from items import Post
-
-POSTGRES = {
-    "database": "healingwell",
-    "user": "python",
-    "password": "abc123",
-}
+from healingwell.settings import POSTGRES
 
 class HealingwellPipeline(object):
     sql = "insert into gerd (" + \

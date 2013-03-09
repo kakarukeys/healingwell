@@ -8,12 +8,12 @@
 
 BOT_NAME = 'healingwell'
 
-SPIDER_MODULES = ['healingwell.spiders']
-NEWSPIDER_MODULE = 'healingwell.spiders'
+SPIDER_MODULES = ['healingwell.crawler.spiders']
+NEWSPIDER_MODULE = 'healingwell.crawler.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'healingwell (+http://www.yourdomain.com)'
 
 ITEM_PIPELINES = [
-    'healingwell.pipelines.HealingwellPipeline',
+    'healingwell.crawler.pipelines.HealingwellPipeline',
 ]

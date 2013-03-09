@@ -7,7 +7,7 @@ from scrapy.contrib.loader import XPathItemLoader
 from scrapy.contrib.loader.processor import TakeFirst, MapCompose, Join
 from scrapy.selector import HtmlXPathSelector
 
-from healingwell.items import Post
+from healingwell.crawler.items import Post
 
 P_RE = re.compile("&p=\d+")
 DATETIME_RE = re.compile("(.+) \(GMT ([+-]\d+)\)")
