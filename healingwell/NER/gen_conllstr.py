@@ -7,7 +7,7 @@ from healingwell.settings import POSTGRES
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODE)
 psycopg2.extensions.register_type(psycopg2.extensions.UNICODEARRAY)
 
-SEP = '|||'
+SEP = '\n\n'
 
 def gen_conllstr(post_content):
 	sentences = sent_tokenize(post_content)
