@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+
+<html class="no-js" ng-app="healingwell">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title>{{ title }}</title>
+        <meta name="description" content="{{ description }}">
+        <meta name="viewport" content="width=device-width">
+
+        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="css/bootstrap-responsive.min.css">
+        <link rel="stylesheet" href="css/app.css"/>
+        
+        <script src="lib/modernizr/modernizr-2.6.2-respond-1.1.0.min.js"></script>
+    </head>
+
+    <body>
+        <!--[if lt IE 7]>
+            <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="navbar navbar-inverse navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="">Healingwell</a>
+                    <div class="nav-collapse collapse">
+                        <form class="navbar-form pull-right">
+                            <input class="span2" type="text" placeholder="Username">
+                            <input class="span2" type="password" placeholder="Password">
+                            <button type="submit" class="btn">Sign in</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div id="main" class="container">
+            <div ng-view></div>
+
+            <hr>
+
+            <footer>
+                <p>&copy; Javelin Consulting 2013</p>
+            </footer>
+        </div>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="lib/jquery/jquery-1.9.1.min.js"><\/script>')</script>
+        
+        <script src="lib/bootstrap/bootstrap.min.js"></script>
+        <script src="lib/angular/angular.min.js"></script>
+        <script src="lib/underscore/underscore-min.js"></script>
+
+        <script src="js/app.js"></script>
+        <script src="js/services.js"></script>
+        <script src="js/filters.js"></script>
+        <script src="js/controllers.js"></script>
+        <script src="js/directives.js"></script>
+        
+    </body>
+</html>
