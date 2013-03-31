@@ -1,26 +1,20 @@
 import psycopg2
+
+from healingwell.models import db
+
 from items import Post
-from healingwell.settings import POSTGRES
+from models import GERD
 
 class HealingwellPipeline(object):
-    sql = "insert into gerd (" + \
-        ','.join(Post.fields) + ") values (" + \
-        ','.join("%(" + name + ")s" for name in Post.fields) + ')'
-
-    def __init__(self):
-        self.conn = psycopg2.connect(**POSTGRES)
-        self.cur = self.conn.cursor()
-
     def process_item(self, item, spider):
+    	db.set_autocommit(False)
         try:
-            self.cur.execute(self.sql, item)
+            GERD.create(**item)
         except psycopg2.Error as e:
-            self.conn.rollback()
+            db.rollback()
             print e
         else:
-            self.conn.commit()
+            db.commit()
+        finally:
+        	db.set_autocommit(True)
         return item
-
-    def __del__(self):
-        self.cur.close()
-        self.conn.close()
