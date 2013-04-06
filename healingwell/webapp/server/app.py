@@ -2,10 +2,10 @@ from flask import Flask, request, jsonify
 from flask_peewee.auth import Auth
 from flask_peewee.db import Database
 
-import settings
+import configs
 
 app = Flask(__name__)
-app.config.from_object(settings)
+app.config.from_object(configs)
 
 db = Database(app)
 auth = Auth(app, db)
