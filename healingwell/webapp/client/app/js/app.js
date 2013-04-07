@@ -4,7 +4,7 @@
 var hw = {};
 
 // Declare app level module which depends on filters, and services
-angular.module('healingwell', ['healingwell.filters', 'healingwell.services', 'healingwell.directives'])
+angular.module('healingwell', ['ngCookies', 'healingwell.filters', 'healingwell.services', 'healingwell.directives'])
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('', {
             title: "Healingwell Analytics", 

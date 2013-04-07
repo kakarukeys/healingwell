@@ -1,3 +1,11 @@
-div#main {
+div.navbar + div {
 	margin-top: 60px;
+}
+
+.spacer-right {
+	margin-right: 10px;
+}
+
+.spacer-left {
+	margin-left: 10px;
 }

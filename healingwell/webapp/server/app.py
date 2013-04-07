@@ -15,21 +15,17 @@ def login():
     user = auth.authenticate(request.form.get("username", ''), request.form.get("password", ''))
     if user:
         auth.login_user(user)
-        outcome = {"message": "Logged in.", "redirect_to": request.args.get("next", '/')}, 302
+        outcome = {"message": "Logged in.", "redirect_to": request.args.get("next", '/'), "status": "success"}
     else:
-        outcome = {"message": "Invalid username or password."}, 200
-    response = jsonify(**outcome[0])
-    response.status_code = outcome[1]
-    return response
+        outcome = {"message": "Invalid username or password.", "status": "error"}
+    return jsonify(outcome)
 
 @app.route("/logout")
 @auth.login_required
 def logout():
     user = auth.get_logged_in_user()
     auth.logout_user(user)
-    response = jsonify(message="Logged out.", redirect_to='/')
-    response.status_code = 302
-    return response
+    return jsonify({"message": "Logged out.", "redirect_to": '/', "status": "success"})
 
 if app.config['DEBUG']: #serve static files when developing
     from werkzeug import SharedDataMiddleware
