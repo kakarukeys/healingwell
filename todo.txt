@@ -11,10 +11,15 @@ NER
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
+provide ways to manage user CUD
 comments
-unit-tests
-split between dev and prod
+tests
+prepare settings_local configs_local templates
 allow for setting up the project for a new developer
 respect robot rules
+client-side form validation
+eliminate the need to go to index.html to open front page on dev server
+continuous improvement: improve security on client-side code: e.g. CSRF prevention on forms.
 continuous improvement: make sure no error during crawling and all extractionws are done correctly
+continuous improvement: improve security on server-side code: e.g. is password hashing secure?
 continuous improvement: support python 3+
