@@ -12,6 +12,8 @@ NER
 	a new table for M2M relationship between posts and named entities
 
 provide ways to manage user CUD
+improve flask app project layout
+learn flask
 comments
 tests
 prepare settings_local configs_local templates
