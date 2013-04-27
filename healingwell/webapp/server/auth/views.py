@@ -16,7 +16,8 @@ def login():
     if user:
         auth.login_user(user)
         principal.identity_changed.send(app, identity=principal.Identity(user.id))
-        outcome = {"message": "Logged in.", "redirect_to": request.args.get("next", '/'), "status": "success"}
+        groups = [record.name for record in Group.select(Group.name).join(UserGroup).where(UserGroup.user == user)]
+        outcome = {"message": "Logged in.", "redirect_to": request.args.get("next", '/'), "status": "success", "groups": groups}
     else:
         outcome = {"message": "Invalid username or password.", "status": "error"}
     return jsonify(outcome)

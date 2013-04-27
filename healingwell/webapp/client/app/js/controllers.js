@@ -4,14 +4,15 @@ hw.controller = {};
 
 hw.controller.ERROR_OBJ = {message: "An error has occurred, please try again later or contact us.", status: "error"};
 
-hw.controller.BodyCtrl = function ($scope, $element, $http, $cookies) {
+hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore) {
 	var that = this;
 
-	$scope.username = $cookies.username;	//so that app remembers someone has logged in.
+	$scope.username = $cookieStore.get("username");	//so that app remembers someone has logged in.
+	$scope.groups = $cookieStore.get("groups");		//and the groups he belongs to
 
 	this.publish_alert_msg = function(obj) {
 		$scope.alert_msg = {
-			class: "alert-" + obj.status,
+			"class": "alert-" + obj.status,
 			header: obj.status.charAt(0).toUpperCase() + obj.status.slice(1) + '!',
 			text: obj.message
 		};
@@ -29,7 +30,10 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookies) {
 			headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function(data) {
 			if (data.status === "success") {
-				$cookies.username = $scope.username = $element.find("input[name=username]").val();
+				$scope.username = $element.find("input[name=username]").val();
+				$cookieStore.put("username", $scope.username);
+				$scope.groups = data.groups;
+				$cookieStore.put("groups", $scope.groups);
 			}
 			that.publish_alert_msg(data);
 		}).error(function() {
@@ -42,14 +46,17 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookies) {
 			method: "GET",
 			url: "logout"
 		}).success(function(data, status) {
-			$cookies.username = $scope.username = undefined;
+			$scope.username = undefined;
+			$scope.groups = undefined;
+			$cookieStore.remove("username");
+			$cookieStore.remove("groups");
 			that.publish_alert_msg(data);
 		}).error(function() {
 			that.publish_alert_msg(hw.controller.ERROR_OBJ);
 		});
-	}
+	};
 };
-hw.controller.BodyCtrl.$inject = ["$scope", "$element", "$http", "$cookies"];
+hw.controller.BodyCtrl.$inject = ["$scope", "$element", "$http", "$cookieStore"];
 
 hw.controller.HomeCtrl = function ($scope) {
 };
