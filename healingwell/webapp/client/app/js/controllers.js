@@ -69,6 +69,10 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $locat
 			that.publish_alert_msg(hw.controller.ERROR_OBJ);
 		});
 	};
+
+    $scope.$on('$routeChangeSuccess', function (event, current, previous) {
+        $scope.clear_alert_msg();
+    });
 };
 hw.controller.BodyCtrl.$inject = ["$scope", "$element", "$http", "$cookieStore", "$location"];
 
