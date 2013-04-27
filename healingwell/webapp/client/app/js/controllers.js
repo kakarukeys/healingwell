@@ -4,8 +4,11 @@ hw.controller = {};
 
 hw.controller.ERROR_OBJ = {message: "An error has occurred, please try again later or contact us.", status: "error"};
 
-hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore) {
-	var that = this;
+hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $location) {
+	var that = this,
+		nav_links = [
+			{url: "#/workshop", title: "Workshop", group: "clerk", excluded_at: "/workshop"}
+		];
 
 	$scope.username = $cookieStore.get("username");	//so that app remembers someone has logged in.
 	$scope.groups = $cookieStore.get("groups");		//and the groups he belongs to
@@ -16,6 +19,17 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore) {
 			header: obj.status.charAt(0).toUpperCase() + obj.status.slice(1) + '!',
 			text: obj.message
 		};
+	};
+
+	$scope.get_nav_links = function() {
+		/* select navigation links that 
+		 * 		1. is not associated with any specific group
+		 *		2. belongs to the user's groups
+		 *		3. is not excluded at current url
+		 */
+		return _.filter(nav_links, function(item) {
+			return (!item.group || _.contains($scope.groups, item.group)) && $location.path().indexOf(item.excluded_at); 
+		});
 	};
 
 	$scope.clear_alert_msg = function() {
@@ -56,8 +70,14 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore) {
 		});
 	};
 };
-hw.controller.BodyCtrl.$inject = ["$scope", "$element", "$http", "$cookieStore"];
+hw.controller.BodyCtrl.$inject = ["$scope", "$element", "$http", "$cookieStore", "$location"];
 
 hw.controller.HomeCtrl = function ($scope) {
 };
 hw.controller.HomeCtrl.$inject = ["$scope"];
+
+hw.controller.workshop = {};
+
+hw.controller.workshop.HomeCtrl = function ($scope) {
+};
+hw.controller.workshop.HomeCtrl.$inject = ["$scope"];
