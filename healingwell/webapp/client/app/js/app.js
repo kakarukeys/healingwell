@@ -15,8 +15,13 @@ angular.module('healingwell', ['ngCookies', 'healingwell.filters', 'healingwell.
         })
         .when('/workshop', {
             title: "Workshop", 
-            templateUrl: 'partials/workshop/home.html', 
-            controller: hw.controller.workshop.HomeCtrl
+            templateUrl: 'partials/workshop/lounge.html', 
+            controller: hw.controller.workshop.LoungeCtrl
+        })
+        .when('/workshop/ner_training_data', {
+            title: "NER Training Data Editor", 
+            templateUrl: 'partials/workshop/ner_training_data.html', 
+            controller: hw.controller.workshop.NERTrainingDataCtrl
         })
         .otherwise({redirectTo: ''});
     }])
