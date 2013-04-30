@@ -9,3 +9,8 @@ div.navbar + div {
 .spacer-left {
 	margin-left: 10px;
 }
+
+.detached {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
