@@ -101,6 +101,191 @@ hw.controller.workshop.LoungeCtrl = function ($scope) {
 };
 hw.controller.workshop.LoungeCtrl.$inject = ["$scope"];
 
-hw.controller.workshop.NERTrainingDataCtrl = function ($scope) {
+hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $location) {
+    var that = this,
+        page_total = 7,
+        current_id = parseInt($routeParams.id),
+        offset = page_total * Math.floor((current_id - 1) / page_total);
+
+    this.loadData = function(limit, offset) {
+        if (_.random(0, 10) == 0) {
+            return [];
+        } else {
+            return [
+                {
+                    id: offset + 1,
+                    post_content: "bla bla bla",
+                    iob: [
+                        {token: "bla", tag: "O"},
+                        {token: "bla", tag: "B-PER"},
+                        {token: "bla", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 1,
+                    post_content: "bla bla bla la la",
+                    iob: [
+                        {token: "ble", tag: "O"},
+                        {token: "ble", tag: "B-PER"},
+                        {token: "ble", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 2,
+                    post_content: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                    iob: [
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"},
+                        {token: "Lorem", tag: "O"},
+                        {token: "Overnumerousnesses", tag: "B-PER"},
+                        {token: "ipsum", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 3,
+                    post_content: "bla bla bla",
+                    iob: [
+                        {token: "bla", tag: "O"},
+                        {token: "bla", tag: "B-PER"},
+                        {token: "bla", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 4,
+                    post_content: "bla bla bla la la",
+                    iob: [
+                        {token: "bla", tag: "O"},
+                        {token: "bla", tag: "B-PER"},
+                        {token: "bla", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 5,
+                    post_content: "bla bla bla la la la",
+                    iob: [
+                        {token: "bla", tag: "O"},
+                        {token: "bla", tag: "B-PER"},
+                        {token: "bla", tag: "I-PER"}
+                    ]
+                },
+                {
+                    id: offset + 1 + 6,
+                    post_content: "bla bla bla la la la",
+                    iob: [
+                        {token: "bla", tag: "O"},
+                        {token: "bla", tag: "B-PER"},
+                        {token: "bla", tag: "I-PER"}
+                    ]
+                }
+            ];
+        }
+    };
+
+    $scope.data = that.loadData(page_total, offset);
+
+    //pagination
+    $scope.prev_id = offset + 1 - page_total;
+    $scope.next_id = offset + 1 + page_total;
+    $scope.is_first_page = offset === 0;
+
+    $scope.page_range = _.range(offset + 1, offset + 1 + _.size($scope.data));
+    $scope.record = _.findWhere($scope.data, {id: current_id});
+    $scope.is_last_page = _.size($scope.data) < page_total;
+
+    $scope.is_current = function(num) {
+        return num === current_id;
+    };
+
+    //goto widget
+    $scope.goto = function() {
+        if (!isNaN($scope.goto_id)) {
+            $location.path("/workshop/ner_training_data/" + $scope.goto_id);
+        }
+    };
 };
-hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope"];
+hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope", "$routeParams", "$location"];

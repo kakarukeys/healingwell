@@ -19,6 +19,9 @@ angular.module('healingwell', ['ngCookies', 'healingwell.filters', 'healingwell.
             controller: hw.controller.workshop.LoungeCtrl
         })
         .when('/workshop/ner_training_data', {
+            redirectTo: '/workshop/ner_training_data/1'
+        })
+        .when('/workshop/ner_training_data/:id', {
             title: "NER Training Data Editor", 
             templateUrl: 'partials/workshop/ner_training_data.html', 
             controller: hw.controller.workshop.NERTrainingDataCtrl

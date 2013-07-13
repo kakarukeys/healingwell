@@ -2,28 +2,34 @@
    	<h3>NER Training Data Editor</h3>
 </div>
 <div class="row">
-	<div class="span6">
+	<div class="span8">
 		<div class="row">
-		    <div class="span5 pagination">
+		    <div class="span6 pagination">
 	    		<ul>
-					<li class="disabled"><span>&laquo; Prev</span></li>
-					<li class="active"><span>1</span></li>
-					<li><a href="#">2</a></li>
-					<li><a href="#">3</a></li>
-					<li><a href="#">4</a></li>
-					<li><a href="#">5</a></li>
-					<li class="disabled"><span>...</span></li>
-					<li><a href="#">100</a></li>
-					<li><a href="#">Next &raquo;</a></li>
+					<li ng-class="is_first_page && 'disabled'" ng-switch on="is_first_page">
+						<span ng-switch-when="true">&laquo; Prev</span>
+						<a ng-switch-default ng-href="#/workshop/ner_training_data/{{ prev_id }}">&laquo; Prev</a>
+					</li>
+					<li ng-repeat="num in page_range" ng-class="is_current(num) && 'active'" ng-switch on="is_current(num)">
+						<span ng-switch-when="true">{{ num }}</span>
+						<a ng-switch-default ng-href="#/workshop/ner_training_data/{{ num }}">{{ num }}</a>
+					</li>
+					<li ng-class="is_last_page && 'disabled'" ng-switch on="is_last_page">
+						<span ng-switch-when="true">Next &raquo;</span>
+						<a ng-switch-default ng-href="#/workshop/ner_training_data/{{ next_id }}">Next &raquo;</a>
+					</li>
 	    		</ul>
 	    	</div>
-	    	<input type="number" class="span1 detached">
-	    </div>
-	    <blockquote class="row">
-			Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	    </blockquote>
+
+		    <form class="span2 form-inline detached" ng-submit="goto()">
+				<input type="number" min="1" class="span1" ng-model="goto_id">
+			    <button type="submit" class="btn">Go</button>
+		    </form>
+		</div>
+
+	    <blockquote class="row">{{ record.post_content }}</blockquote>
 	</div>
-	<div class="span6">
+	<div class="span4">
 		<button class="btn btn-primary detached" type="button">Save</button>
 		<table class="table table-bordered table-hover table-condensed">
 			<thead>
@@ -32,20 +38,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td>Lorem</td><td>O</td>
-				</tr>
-				<tr>
-					<td>ipsum</td><td>B-Per</td>
-				</tr>
-				<tr>
-					<td>dolor</td><td>I-Per</td>
-				</tr>
-				<tr>
-					<td>sit</td><td>O</td>
-				</tr>
-				<tr>
-					<td>amet</td><td>O</td>
+				<tr ng-repeat="iob in record.iob">
+					<td>{{ iob.token }}</td><td><input type="text" ng-model="iob.tag"></input></td>
 				</tr>
 			</tbody>
     	</table>

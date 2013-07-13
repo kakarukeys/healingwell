@@ -11,7 +11,11 @@ NER
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
+implement scrolling in the table
+what if id in http://127.0.0.1:5000/index.html#/workshop/ner_training_data/:id is invalid?
 provide ways to manage user CUD
+learn new features in angular.js
+upgrade javascript libraries
 improve flask app project layout
 learn flask
 comments
