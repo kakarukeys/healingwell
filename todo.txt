@@ -11,15 +11,20 @@ NER
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
-implement scrolling in the table
+keep posting and putting with lots of error, in the end, user cannot access the API
+	psycopg2.InternalError
+	InternalError: current transaction is aborted, commands ignored until end of transaction block
+
 what if id in http://127.0.0.1:5000/index.html#/workshop/ner_training_data/:id is invalid?
 provide ways to manage user CUD
+learn about angular modules and use it, put controllers in modules.
 learn new features in angular.js
 upgrade javascript libraries
 improve flask app project layout
 learn flask
 comments
 tests
+restrict operations on nertrainingdata by users to what they need only
 prepare settings_local configs_local templates
 allow for setting up the project for a new developer
 respect robot rules

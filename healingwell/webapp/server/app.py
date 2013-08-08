@@ -10,6 +10,7 @@ if app.config['DEBUG']: #serve static files when developing
     app.wsgi_app = SharedDataMiddleware(app.wsgi_app, {'/': os.path.join(os.path.dirname(__file__), '../client/app')})
 
 if __name__ == '__main__':
-    from auth.views import *
+    from healingwell.webapp.server.auth.views import *
+    from healingwell.webapp.server.ner_training_data.views import *
     app.run()
     

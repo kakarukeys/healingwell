@@ -4,6 +4,6 @@ from healingwell.models import BaseModel
 from healingwell.crawler.models import GERD
 
 class NERTrainingData(BaseModel):
-    gerd = ForeignKeyField(GERD, primary_key=True)
+    gerd = ForeignKeyField(GERD)
     conllstr = TextField()
     
