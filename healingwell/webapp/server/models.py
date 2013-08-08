@@ -1,4 +1,4 @@
 from flask_peewee.db import Database
-from app import app
+from healingwell.webapp.server.app import app
 
 db = Database(app)

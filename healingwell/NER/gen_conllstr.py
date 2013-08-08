@@ -4,8 +4,7 @@ from nltk.chunk.util import tree2conllstr
 
 from healingwell.crawler.models import GERD
 from healingwell.models import db
-
-from models import NERTrainingData
+from healingwell.NER.models import NERTrainingData
 
 SEP = '\n\n'
 

@@ -1,9 +1,8 @@
 import psycopg2
 
 from healingwell.models import db
-
-from items import Post
-from models import GERD
+from healingwell.crawler.items import Post
+from healingwell.crawler.models import GERD
 
 class HealingwellPipeline(object):
     def process_item(self, item, spider):

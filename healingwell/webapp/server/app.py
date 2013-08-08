@@ -1,5 +1,5 @@
 from flask import Flask
-import configs
+from healingwell.webapp.server import configs
 
 app = Flask(__name__)
 app.config.from_object(configs)

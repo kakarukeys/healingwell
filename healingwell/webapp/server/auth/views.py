@@ -1,7 +1,7 @@
 from flask import request, jsonify, session
 import flask.ext.principal as principal
 from healingwell.webapp.server.app import app
-from models import auth, UserGroup, Group, GroupPermission
+from healingwell.webapp.server.auth.models import auth, UserGroup, Group, GroupPermission
 
 principal.Principal(app)
 

@@ -1,5 +1,5 @@
 from peewee import PostgresqlDatabase, Model
-from settings import POSTGRES
+from healingwell.settings import POSTGRES
 
 db = PostgresqlDatabase(**POSTGRES)
 
