@@ -11,7 +11,7 @@ angular.module('healingwell.services', [])
             }
         };
     }])
-    .factory("NERTrainingDataSource", ["NERTrainingDataRest", function(NERTrainingDataRest) {
+    .factory("NERTrainingData", ["NERTrainingDataRest", "$cacheFactory", "$q", function(NERTrainingDataRest, $cacheFactory, $q) {
         function NERTrainingData(obj) {
             _.extend(this, {
                 id: obj.id,
@@ -21,6 +21,30 @@ angular.module('healingwell.services', [])
                 })
             });
         }
+
+        var cache = $cacheFactory('NERTrainingData');
+
+        NERTrainingData.get = function(options) {
+            var storageKey = angular.toJson(options);
+            var result = cache.get(storageKey);
+            var deferred;
+
+            if (_.isUndefined(result)) {
+                return NERTrainingDataRest
+                    .get(options.id, {params: _.omit(options, "id")})
+                    .then(function(response) {
+                        result = _.map(response.data.objects, function(obj) {
+                            return new NERTrainingData(obj);
+                        });
+                        cache.put(storageKey, result);
+                        return result;
+                    }, hw.error_callback);
+            } else {
+                deferred = $q.defer();
+                deferred.resolve(result);
+                return deferred.promise;
+            }
+        };
 
         NERTrainingData.prototype.save = function() {
             return NERTrainingDataRest
@@ -33,13 +57,5 @@ angular.module('healingwell.services', [])
                 .error(hw.error_callback);
         };
 
-        return function(limit, page_no) {
-            return NERTrainingDataRest
-                .get(undefined, {params: {limit: limit, page: page_no}})
-                .then(function(response) {
-                    return _.map(response.data.objects, function(obj) {
-                        return new NERTrainingData(obj);
-                    });
-                }, hw.error_callback);
-        };
+        return NERTrainingData;
     }]);

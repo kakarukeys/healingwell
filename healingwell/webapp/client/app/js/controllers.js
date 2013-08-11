@@ -102,7 +102,7 @@ hw.controller.workshop.LoungeCtrl = function ($scope) {
 };
 hw.controller.workshop.LoungeCtrl.$inject = ["$scope"];
 
-hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $location, NERTrainingDataSource) {
+hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $location, NERTrainingData) {
     var that = this;
 
     var page_total = 7;
@@ -111,7 +111,7 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     var offset = (page_no - 1) * page_total;
     var record;
 
-    NERTrainingDataSource(page_total, page_no).then(function(data) {
+    NERTrainingData.get({limit: page_total, page: page_no}).then(function(data) {
         $scope.page_range = _.range(offset + 1, offset + 1 + _.size(data));
         record = _.findWhere(data, {id: current_id});
         $scope.start_editing();
@@ -137,14 +137,13 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     //save and undo buttons
     $scope.save_change = function() {
         $scope.record.save().then(function() {
-            record = angular.copy($scope.record);
+            _.extend(record, angular.copy($scope.record));
             $scope.is_dirty = false;
         });
     };
 
     $scope.start_editing = function() {
         $scope.record = angular.copy(record);
-        console.log($scope.record);
         $scope.is_dirty = false;
     };
 
@@ -152,4 +151,4 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
         $scope.is_dirty = true;
     };
 };
-hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope", "$routeParams", "$location", "NERTrainingDataSource"];
+hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope", "$routeParams", "$location", "NERTrainingData"];
