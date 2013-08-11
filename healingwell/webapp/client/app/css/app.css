@@ -14,3 +14,8 @@ div.navbar + div {
 	margin-top: 20px;
 	margin-bottom: 20px;
 }
+
+.scrollable {
+    height: 500px;
+    overflow: auto;
+}

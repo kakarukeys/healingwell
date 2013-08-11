@@ -8,6 +8,8 @@ NER
 	-> modify text file -> read from text file -> nltk.chunk.util.conllstr2tree -> training -> save chunker using pickle
 	-> chunk all posts -> extract entities -> update entity tables
 
+	get rid of HTML tags in post_content
+	get rid of non-user-generated tokens
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
@@ -24,7 +26,6 @@ improve flask app project layout
 learn flask
 comments
 tests
-restrict operations on nertrainingdata by users to what they need only
 prepare settings_local configs_local templates
 allow for setting up the project for a new developer
 respect robot rules
@@ -33,4 +34,5 @@ eliminate the need to go to index.html to open front page on dev server
 continuous improvement: improve security on client-side code: e.g. CSRF prevention on forms.
 continuous improvement: make sure no error during crawling and all extractionws are done correctly
 continuous improvement: improve security on server-side code: e.g. is password hashing secure?
+	restrict operations on nertrainingdata by users to what they need only, post / put can be used interchangeably, so create and update permissions are not enforced
 continuous improvement: support python 3+

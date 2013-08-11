@@ -30,18 +30,21 @@
 	    <blockquote class="row">{{ record.post_content }}</blockquote>
 	</div>
 	<div class="span4">
-		<button class="btn btn-primary detached" type="button">Save</button>
-		<table class="table table-bordered table-hover table-condensed">
-			<thead>
-				<tr>
-					<th>Token</th><th>Tag</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="iob in record.iob">
-					<td>{{ iob.token }}</td><td><input type="text" ng-model="iob.tag"></input></td>
-				</tr>
-			</tbody>
-    	</table>
+		<button class="btn btn-primary detached" type="button" ng-click="save_data()">Save</button>
+		<div class="scrollable">
+			<table class="table table-bordered table-hover table-condensed">
+				<thead>
+					<tr>
+						<th>Token</th><th>Tag</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tag in record.tags">
+						<td>{{ tag.token }}</td>
+						<td><input type="text" class="span2" ng-model="tag.iob" ng-disabled="!tag.token"></input></td>
+					</tr>
+				</tbody>
+	    	</table>
+    	</div>
 	</div>
 </div>
