@@ -13,6 +13,10 @@ NER
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
+display saved! message after saving
+
+improve error_callback to use the default message display mechanism instead of alert, display error message related to forbidden error.
+
 keep posting and putting with lots of error, in the end, user cannot access the API
 	psycopg2.InternalError
 	InternalError: current transaction is aborted, commands ignored until end of transaction block

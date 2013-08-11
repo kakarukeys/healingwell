@@ -109,10 +109,12 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     var current_id = parseInt($routeParams.id, 10);
     var page_no = Math.ceil(current_id / page_total);
     var offset = (page_no - 1) * page_total;
+    var record;
 
     NERTrainingDataSource(page_total, page_no).then(function(data) {
         $scope.page_range = _.range(offset + 1, offset + 1 + _.size(data));
-        $scope.record = _.findWhere(data, {id: current_id});
+        record = _.findWhere(data, {id: current_id});
+        $scope.start_editing();
         $scope.is_last_page = _.size(data) < page_total;
     });
 
@@ -132,9 +134,22 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
         }
     };
 
-    //save button
-    $scope.save_data = function() {
-        console.log("save to server!");
+    //save and undo buttons
+    $scope.save_change = function() {
+        $scope.record.save().then(function() {
+            record = angular.copy($scope.record);
+            $scope.is_dirty = false;
+        });
+    };
+
+    $scope.start_editing = function() {
+        $scope.record = angular.copy(record);
+        console.log($scope.record);
+        $scope.is_dirty = false;
+    };
+
+    $scope.on_change = function() {
+        $scope.is_dirty = true;
     };
 };
 hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope", "$routeParams", "$location", "NERTrainingDataSource"];
