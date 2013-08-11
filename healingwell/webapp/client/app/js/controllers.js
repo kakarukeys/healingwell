@@ -3,6 +3,7 @@
 hw.controller = {};
 
 hw.controller.ERROR_OBJ = {message: "An error has occurred, please try again later or contact us.", status: "error"};
+hw.controller.FORBIDDEN_ERROR_OBJ = {message: "You do not have permission for this or you have not logged in.", status: "error"};
 
 hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $location) {
     var that = this;
@@ -16,7 +17,7 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $locat
     $scope.username = $cookieStore.get("username"); //so that app remembers someone has logged in.
     $scope.groups = $cookieStore.get("groups");     //and the groups he belongs to
 
-    this.publish_alert_msg = function(obj) {
+    $scope.publish_alert_msg = function(obj) {
         $scope.alert_msg = {
             "class": "alert-" + obj.status,
             header: obj.status.charAt(0).toUpperCase() + obj.status.slice(1) + '!',
@@ -58,16 +59,16 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $locat
             url: "login",
             data: $element.find("#login_form").serialize(),
             headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-        }).success(function(data) {
-            if (data.status === "success") {
+        }).then(function(response) {
+            if (response.data.status === "success") {
                 $scope.username = $element.find("input[name=username]").val();
                 $cookieStore.put("username", $scope.username);
-                $scope.groups = data.groups;
+                $scope.groups = response.data.groups;
                 $cookieStore.put("groups", $scope.groups);
             }
-            that.publish_alert_msg(data);
-        }).error(function() {
-            that.publish_alert_msg(hw.controller.ERROR_OBJ);
+            $scope.publish_alert_msg(response.data);
+        }, function() {
+            $scope.publish_alert_msg(hw.controller.ERROR_OBJ);
         });
     };
 
@@ -75,14 +76,14 @@ hw.controller.BodyCtrl = function ($scope, $element, $http, $cookieStore, $locat
         $http({
             method: "GET",
             url: "logout"
-        }).success(function(data) {
+        }).then(function(response) {
             $scope.username = undefined;
             $scope.groups = undefined;
             $cookieStore.remove("username");
             $cookieStore.remove("groups");
-            that.publish_alert_msg(data);
-        }).error(function() {
-            that.publish_alert_msg(hw.controller.ERROR_OBJ);
+            $scope.publish_alert_msg(response.data);
+        }, function() {
+            $scope.publish_alert_msg(hw.controller.ERROR_OBJ);
         });
     };
 
@@ -116,6 +117,8 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
         record = _.findWhere(data, {id: current_id});
         $scope.start_editing();
         $scope.is_last_page = _.size(data) < page_total;
+    }, function(response) {
+        $scope.$parent.publish_alert_msg(hw.controller[(response.status === 403 ? "FORBIDDEN_" : '') + "ERROR_OBJ"]);
     });
 
     //pagination
@@ -139,6 +142,9 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
         $scope.record.save().then(function() {
             _.extend(record, angular.copy($scope.record));
             $scope.is_dirty = false;
+            $scope.$parent.publish_alert_msg({status: "success", message: "Record no. " + record.id + " saved."});
+        }, function(response) {
+            $scope.$parent.publish_alert_msg(hw.controller[(response.status === 403 ? "FORBIDDEN_" : '') + "ERROR_OBJ"]);
         });
     };
 
@@ -150,5 +156,11 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     $scope.on_change = function() {
         $scope.is_dirty = true;
     };
+
+    $scope.$on("$locationChangeStart", function(e) {
+        if ($scope.is_dirty && !confirm("You have unsaved changes. Are you sure you want to navigate away and lose them?")) {
+            e.preventDefault();
+        }
+    });
 };
 hw.controller.workshop.NERTrainingDataCtrl.$inject = ["$scope", "$routeParams", "$location", "NERTrainingData"];

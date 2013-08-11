@@ -38,7 +38,7 @@ angular.module('healingwell.services', [])
                         });
                         cache.put(storageKey, result);
                         return result;
-                    }, hw.error_callback);
+                    });
             } else {
                 deferred = $q.defer();
                 deferred.resolve(result);
@@ -53,8 +53,7 @@ angular.module('healingwell.services', [])
                     conllstr: _.map(this.tags, function(tag) {
                         return tag.token && tag.token + ' ' + tag.pos + ' ' + tag.iob;
                     }).join('\n')
-                })
-                .error(hw.error_callback);
+                });
         };
 
         return NERTrainingData;

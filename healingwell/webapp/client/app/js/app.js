@@ -5,10 +5,6 @@ var hw = {};
 
 hw.TITLE = "Healingwell Analytics";
 
-hw.error_callback = function() {
-    alert("There seems to be an error. Please try again later.");
-};
-
 // Declare app level module which depends on filters, and services
 angular.module('healingwell', ['ngCookies', 'healingwell.filters', 'healingwell.services', 'healingwell.directives'])
     .config(['$routeProvider', function($routeProvider) {
