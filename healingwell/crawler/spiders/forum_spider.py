@@ -48,12 +48,12 @@ class ForumSpider(CrawlSpider):
             l2.add_xpath("post_author", ".//td[@class='msgUser']/a[2]/text()")
             l2.add_xpath("post_author_url", ".//td[@class='msgUser']/a[2]/@href", MapCompose(lambda s: "http://www.healingwell.com" + s))
             l2.add_xpath(
-                "post_date", 
-                ".//td[@class='msgThreadInfo PostThreadInfo']/text()", 
-                MapCompose(lambda s: s.strip(), parse_datetime), 
+                "post_date",
+                ".//td[@class='msgThreadInfo PostThreadInfo']/text()",
+                MapCompose(lambda s: s.strip(), parse_datetime),
                 re="Posted (.*)"
             )
-            l2.add_xpath("post_content", ".//div[@class='PostMessageBody']/node()")
-            l2.add_xpath("post_content", ".//div[@class='PostBoxWrapper']/node()[not(@class='PostMessageBody')][not(@class='PostToTopLink')]")
+            l2.add_xpath("post_content", ".//div[@class='PostMessageBody']/node()[not(@class='PostToTopLink')][not(@class='msgQuoteWrap')]")
+            l2.add_xpath("post_content", ".//div[@class='PostBoxWrapper']/node()[not(@class='PostMessageBody')][not(@class='PostToTopLink')][not(@class='msgQuoteWrap')]")
 
             yield l2.load_item()

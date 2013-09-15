@@ -1,5 +1,20 @@
 Project roadmap is written in evernote, this is the backlog:
 
+data cleanup
+	exclude any element that contains any of the following and all elements after it.
+		<hr class="PostHR">
+		<!-- Edit -->
+
+	img -> "emoticon-" + alt attribute
+	text -> do nothing
+	others -> get all text nodes under it
+
+	map(lambda s: s.strip(), _)
+	filter(bool, _)
+	' '.join
+
+	do data migration
+
 NER
 	from nltk.chunk.named_entity import NEChunkParser
 	chunker = NEChunkParser(train_data)
@@ -8,8 +23,6 @@ NER
 	-> modify text file -> read from text file -> nltk.chunk.util.conllstr2tree -> training -> save chunker using pickle
 	-> chunk all posts -> extract entities -> update entity tables
 
-	get rid of HTML tags in post_content
-	get rid of non-user-generated tokens
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 
@@ -18,10 +31,12 @@ keep posting and putting with lots of error, in the end, user cannot access the 
 	InternalError: current transaction is aborted, commands ignored until end of transaction block
 
 what if id in http://127.0.0.1:5000/index.html#/workshop/ner_training_data/:id is invalid?
+
 provide ways to manage user CUD
 learn about angular modules and use it, put controllers in modules.
 learn new features in angular.js
 upgrade javascript libraries
+client-side form validation
 improve flask app project layout
 learn flask
 comments
@@ -29,8 +44,10 @@ tests
 prepare settings_local configs_local templates
 allow for setting up the project for a new developer
 respect robot rules
-client-side form validation
 eliminate the need to go to index.html to open front page on dev server
+
+continuous improvement: improve data processing pipeline
+	tokenizer improvement: recognize URL as one token
 continuous improvement: improve security on client-side code: e.g. CSRF prevention on forms.
 continuous improvement: make sure no error during crawling and all extractionws are done correctly
 continuous improvement: improve security on server-side code: e.g. is password hashing secure?

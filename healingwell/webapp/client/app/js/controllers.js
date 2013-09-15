@@ -137,6 +137,9 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
         }
     };
 
+    //select widget
+    $scope.iob_options = NERTrainingData.iob_options;
+
     //save and undo buttons
     $scope.save_change = function() {
         $scope.record.save().then(function() {

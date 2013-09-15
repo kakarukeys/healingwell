@@ -42,7 +42,10 @@
 				<tbody>
 					<tr ng-repeat="tag in record.tags">
 						<td>{{ tag.token }}</td>
-						<td><input type="text" class="span2" ng-model="tag.iob" ng-change="on_change()" ng-disabled="!tag.token"></input></td>
+						<td>
+							<select class="span2" ng-model="tag.iob" required ng-options="o for o in iob_options" ng-change="on_change()" ng-disabled="!tag.token">
+							</select>
+						</td>
 					</tr>
 				</tbody>
 	    	</table>

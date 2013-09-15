@@ -24,6 +24,24 @@ angular.module('healingwell.services', [])
 
         var cache = $cacheFactory('NERTrainingData');
 
+        NERTrainingData.iob_options = [
+            "O",
+            "B-ACTIVITY",
+            "B-INTERVENTION",
+            "B-REMEDY",
+            "B-MEDICINE",
+            "B-SYMPTOM",
+            "B-DIAGNOSIS",
+            "B-PHYSICIAN",
+            "I-ACTIVITY",
+            "I-INTERVENTION",
+            "I-REMEDY",
+            "I-MEDICINE",
+            "I-SYMPTOM",
+            "I-DIAGNOSIS",
+            "I-PHYSICIAN"
+        ];
+
         NERTrainingData.get = function(options) {
             var storageKey = angular.toJson(options);
             var result = cache.get(storageKey);
