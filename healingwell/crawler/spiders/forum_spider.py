@@ -1,6 +1,8 @@
 import re
 from datetime import datetime, timedelta
+from itertools import takewhile, imap, ifilter
 
+from lxml.html import fragment_fromstring
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors.sgml import SgmlLinkExtractor
 from scrapy.contrib.loader import XPathItemLoader
@@ -9,11 +11,35 @@ from scrapy.selector import HtmlXPathSelector
 
 from healingwell.crawler.items import Post
 
+
 P_RE = re.compile("&p=\d+")
 DATETIME_RE = re.compile("(.+) \(GMT ([+-]\d+)\)")
+UNRELATED_MARKERS = ('<hr class="PostHR">', "<!-- Edit -->")
+
+def preserve_emoticons(element):
+    """add some text so that when img tag is removed, the text will remain"""
+    for img in element.xpath('//img[starts-with(@src, "/community/emoticons")]'):
+        img.text = " emoticon-" + img.attrib["alt"] + ' '
+    return element
+
+def extract_text(html_string):
+    return preserve_emoticons(fragment_fromstring(html_string, create_parent="div")) \
+        .text_content() \
+        .replace(u'\u00a0', ' ') \
+        .strip()
+
+def is_related(html_string):
+    return all(marker not in html_string for marker in UNRELATED_MARKERS)
+
+def clean_post_content(loader_context, html_strings):
+    return ifilter(bool,
+        imap(extract_text,
+            takewhile(is_related, html_strings)))
 
 class PostLoader(XPathItemLoader):
     default_output_processor = TakeFirst()
+
+    post_content_in = clean_post_content
     post_content_out = Join()
 
 def parse_datetime(dt_string):

@@ -1,18 +1,6 @@
 Project roadmap is written in evernote, this is the backlog:
 
 data cleanup
-	exclude any element that contains any of the following and all elements after it.
-		<hr class="PostHR">
-		<!-- Edit -->
-
-	img -> "emoticon-" + alt attribute
-	text -> do nothing
-	others -> get all text nodes under it
-
-	map(lambda s: s.strip(), _)
-	filter(bool, _)
-	' '.join
-
 	do data migration
 
 NER
