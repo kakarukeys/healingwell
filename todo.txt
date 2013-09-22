@@ -1,8 +1,5 @@
 Project roadmap is written in evernote, this is the backlog:
 
-data cleanup
-	do data migration
-
 NER
 	from nltk.chunk.named_entity import NEChunkParser
 	chunker = NEChunkParser(train_data)
@@ -36,8 +33,12 @@ eliminate the need to go to index.html to open front page on dev server
 
 continuous improvement: improve data processing pipeline
 	tokenizer improvement: recognize URL as one token
+	split the pipeline out as a single component, crawler writes to a kv-store and a queue, pipeline reads from the queue
+	allow re-processing of all scraped data from kv-store
+continuous improvement: improve crawler
+	make sure no error during crawling and all extractions are done correctly
+	allow update-crawl: get the newest posts, some records in kv-store and db are updated
 continuous improvement: improve security on client-side code: e.g. CSRF prevention on forms.
-continuous improvement: make sure no error during crawling and all extractionws are done correctly
 continuous improvement: improve security on server-side code: e.g. is password hashing secure?
 	restrict operations on nertrainingdata by users to what they need only, post / put can be used interchangeably, so create and update permissions are not enforced
 continuous improvement: support python 3+

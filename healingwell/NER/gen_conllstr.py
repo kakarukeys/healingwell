@@ -1,5 +1,5 @@
 import psycopg2
-from nltk import sent_tokenize, word_tokenize, pos_tag, ne_chunk
+from nltk import sent_tokenize, word_tokenize, pos_tag
 from nltk.chunk.util import tree2conllstr
 
 from healingwell.crawler.models import GERD
@@ -8,9 +8,12 @@ from healingwell.NER.models import NERTrainingData
 
 SEP = '\n\n'
 
+def sentence2conllstr(sentence):
+	return tree2conllstr(pos_tag(word_tokenize(sentence)))
+
 def gen_conllstr(post_content):
 	sentences = sent_tokenize(post_content)
-	conllstr_l = map(tree2conllstr, map(ne_chunk, map(pos_tag, map(word_tokenize, sentences))))
+	conllstr_l = map(sentence2conllstr, sentences)
 	return SEP.join(conllstr_l)
 
 records = GERD.select(GERD.id, GERD.post_content).limit(100)

@@ -45,11 +45,13 @@ angular.module('healingwell.services', [])
         NERTrainingData.get = function(options) {
             var storageKey = angular.toJson(options);
             var result = cache.get(storageKey);
-            var deferred;
+            var params, deferred;
 
             if (_.isUndefined(result)) {
+                params = _.defaults(_.omit(options, "id"), {ordering: "id"});
+
                 return NERTrainingDataRest
-                    .get(options.id, {params: _.omit(options, "id")})
+                    .get(options.id, {params: params})
                     .then(function(response) {
                         result = _.map(response.data.objects, function(obj) {
                             return new NERTrainingData(obj);

@@ -109,12 +109,12 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     var page_total = 7;
     var current_id = parseInt($routeParams.id, 10);
     var page_no = Math.ceil(current_id / page_total);
-    var offset = (page_no - 1) * page_total;
+    var first_id = (page_no - 1) * page_total + 1;
     var record;
 
     NERTrainingData.get({limit: page_total, page: page_no}).then(function(data) {
-        $scope.page_range = _.range(offset + 1, offset + 1 + _.size(data));
-        record = _.findWhere(data, {id: current_id});
+        $scope.page_range = _.range(first_id, first_id + _.size(data));
+        record = data[current_id - first_id];
         $scope.start_editing();
         $scope.is_last_page = _.size(data) < page_total;
     }, function(response) {
@@ -122,9 +122,9 @@ hw.controller.workshop.NERTrainingDataCtrl = function($scope, $routeParams, $loc
     });
 
     //pagination
-    $scope.prev_id = offset + 1 - page_total;
-    $scope.next_id = offset + 1 + page_total;
-    $scope.is_first_page = offset === 0;
+    $scope.prev_id = first_id - page_total;
+    $scope.next_id = first_id + page_total;
+    $scope.is_first_page = first_id === 1;
 
     $scope.is_current = function(num) {
         return num === current_id;

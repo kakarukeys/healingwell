@@ -15,3 +15,9 @@ Run this command to test crawl:
 
 Run this command to crawl:
     scrapy crawl healingwell
+
+Run this command to create some training data for NER:
+	python NER/gen_conllstr.py
+
+Run this command to start application:
+	python webapp/server/app.py
