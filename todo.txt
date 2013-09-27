@@ -1,15 +1,18 @@
 Project roadmap is written in evernote, this is the backlog:
 
 NER
-	from nltk.chunk.named_entity import NEChunkParser
-	chunker = NEChunkParser(train_data)
-	healingwell_ner = chunker.parse
-
-	-> modify text file -> read from text file -> nltk.chunk.util.conllstr2tree -> training -> save chunker using pickle
-	-> chunk all posts -> extract entities -> update entity tables
-
+	update requirements.txt and readme
+	research: do we still need IOB tags and POS tags.
+	research: what features do we need?
+	see if the new NER classes are ok by tagging training data using them
+	add a dictionary-based chunker
+	add a rule-based chunker
+	get two thousand NER training data, split into two halves: training set and evaluation set
+	chunk the training data with dictionary-based and rule-based chunker
+	train stanford ner using training set and evaluate using evaluation set
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
+	chunk all posts -> extract entities -> update entity tables
 
 keep posting and putting with lots of error, in the end, user cannot access the API
 	psycopg2.InternalError
@@ -21,7 +24,7 @@ provide ways to manage user CUD
 learn about angular modules and use it, put controllers in modules.
 learn new features in angular.js
 upgrade javascript libraries
-client-side form validation
+client-side form validation - make sure iob sequence is valid
 improve flask app project layout
 learn flask
 comments

@@ -25,18 +25,16 @@ angular.module('healingwell.services', [])
         var cache = $cacheFactory('NERTrainingData');
 
         NERTrainingData.iob_options = [
-            "O",
-            "B-ACTIVITY",
-            "B-INTERVENTION",
-            "B-REMEDY",
+            "B-FOOD",
             "B-MEDICINE",
+            "B-INTERVENTION",
             "B-SYMPTOM",
             "B-DIAGNOSIS",
             "B-PHYSICIAN",
-            "I-ACTIVITY",
-            "I-INTERVENTION",
-            "I-REMEDY",
+            "O",
+            "I-FOOD",
             "I-MEDICINE",
+            "I-INTERVENTION",
             "I-SYMPTOM",
             "I-DIAGNOSIS",
             "I-PHYSICIAN"
