@@ -1,10 +1,6 @@
 Project roadmap is written in evernote, this is the backlog:
 
 NER
-	update requirements.txt and readme
-	research: do we still need IOB tags and POS tags.
-	research: what features do we need?
-	see if the new NER classes are ok by tagging training data using them
 	add a dictionary-based chunker
 	add a rule-based chunker
 	get two thousand NER training data, split into two halves: training set and evaluation set
@@ -13,6 +9,7 @@ NER
 	a new table for named entities
 	a new table for M2M relationship between posts and named entities
 	chunk all posts -> extract entities -> update entity tables
+	tuning the NER to maximize precision and recall: CRF order, useObservedSequencesOnly, DistSim
 
 keep posting and putting with lots of error, in the end, user cannot access the API
 	psycopg2.InternalError
