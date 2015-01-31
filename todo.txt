@@ -1,35 +1,7 @@
 Project roadmap is written in evernote, this is the backlog:
 
-NER
-	add a dictionary-based chunker
-	add a rule-based chunker
-	get two thousand NER training data, split into two halves: training set and evaluation set
-	chunk the training data with dictionary-based and rule-based chunker
-	train stanford ner using training set and evaluate using evaluation set
-	a new table for named entities
-	a new table for M2M relationship between posts and named entities
-	chunk all posts -> extract entities -> update entity tables
-	tuning the NER to maximize precision and recall: CRF order, useObservedSequencesOnly, DistSim
-
-keep posting and putting with lots of error, in the end, user cannot access the API
-	psycopg2.InternalError
-	InternalError: current transaction is aborted, commands ignored until end of transaction block
-
-what if id in http://127.0.0.1:5000/index.html#/workshop/ner_training_data/:id is invalid?
-
-provide ways to manage user CUD
-learn about angular modules and use it, put controllers in modules.
-learn new features in angular.js
-upgrade javascript libraries
-client-side form validation - make sure iob sequence is valid
-improve flask app project layout
-learn flask
-comments
-tests
-prepare settings_local configs_local templates
-allow for setting up the project for a new developer
+prepare settings_local template
 respect robot rules
-eliminate the need to go to index.html to open front page on dev server
 
 continuous improvement: improve data processing pipeline
 	tokenizer improvement: recognize URL as one token
@@ -38,7 +10,4 @@ continuous improvement: improve data processing pipeline
 continuous improvement: improve crawler
 	make sure no error during crawling and all extractions are done correctly
 	allow update-crawl: get the newest posts, some records in kv-store and db are updated
-continuous improvement: improve security on client-side code: e.g. CSRF prevention on forms.
-continuous improvement: improve security on server-side code: e.g. is password hashing secure?
-	restrict operations on nertrainingdata by users to what they need only, post / put can be used interchangeably, so create and update permissions are not enforced
-continuous improvement: support python 3+
+continuous improvement: support pypy
