@@ -9,7 +9,7 @@ from scrapy.contrib.loader import XPathItemLoader
 from scrapy.contrib.loader.processor import TakeFirst, MapCompose, Join
 from scrapy.selector import HtmlXPathSelector
 
-from healingwell.crawler.items import Post
+from healingwell.miner.items import Post
 
 
 P_RE = re.compile("&p=\d+")
@@ -73,6 +73,7 @@ class ForumSpider(CrawlSpider):
             l2.add_xpath("post_url", ".//a[@name]/@name", MapCompose(lambda s: response.url + '#' + s))
             l2.add_xpath("post_author", ".//td[@class='msgUser']/a[2]/text()")
             l2.add_xpath("post_author_url", ".//td[@class='msgUser']/a[2]/@href", MapCompose(lambda s: "http://www.healingwell.com" + s))
+            l2.add_xpath("post_author_rank", ".//td[@class='msgUser']/text()[2]")
             l2.add_xpath(
                 "post_date",
                 ".//td[@class='msgThreadInfo PostThreadInfo']/text()",

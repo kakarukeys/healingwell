@@ -1,13 +1,5 @@
 Project roadmap is written in evernote, this is the backlog:
 
-prepare settings_local template
+make sure no error during crawling and all extractions are done correctly
+allow update-crawl: get the newest posts, insert/update some records in db
 respect robot rules
-
-continuous improvement: improve data processing pipeline
-	tokenizer improvement: recognize URL as one token
-	split the pipeline out as a single component, crawler writes to a kv-store and a queue, pipeline reads from the queue
-	allow re-processing of all scraped data from kv-store
-continuous improvement: improve crawler
-	make sure no error during crawling and all extractions are done correctly
-	allow update-crawl: get the newest posts, some records in kv-store and db are updated
-continuous improvement: support pypy
