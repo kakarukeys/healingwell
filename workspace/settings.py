@@ -11,4 +11,4 @@ POSTGRES = {
 
 # path to log file
 log_file_path = "/home/kakarukeys/projects/healingwell/workspace/healingwell.log"
-log_level = logging.INFO
+log_level = logging.DEBUG

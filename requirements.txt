@@ -1,4 +1,6 @@
 service_identity
 Scrapy
-psycopg2cffi
+psycopg2
 peewee
+mock
+nose
