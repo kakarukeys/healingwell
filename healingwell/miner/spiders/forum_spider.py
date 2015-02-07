@@ -3,6 +3,7 @@ from datetime import datetime, timedelta
 from itertools import takewhile
 
 from lxml.html import fragment_fromstring
+from scrapy import log
 from scrapy.contrib.spiders import CrawlSpider, Rule
 from scrapy.contrib.linkextractors import LinkExtractor
 from scrapy.contrib.loader import ItemLoader
@@ -13,7 +14,7 @@ from healingwell.miner.items import Post
 
 PAGE_RE = re.compile(r"&p=\d+")
 POST_DATE_RE = re.compile(r"Posted (.+)")
-DATETIME_RE = re.compile(r"([A-Za-z]*)(.+) \(GMT ([+-]\d+)\)")
+DATETIME_RE = re.compile(r"([A-Za-z]*)(.+) \(GMT ([+-]?\d+)\)")
 UNRELATED_MARKERS = ('<hr class="PostHR">', "<!-- Edit -->")
 
 def _parse_natural_date(d_string, utc_offset):
@@ -47,7 +48,10 @@ def _preserve_emoticons(element):
     return element
 
 def _extract_text(html_string):
-    element = fragment_fromstring(html_string, create_parent="div")
+    element = fragment_fromstring(
+        html_string.replace("<br>", '\n'),
+        create_parent="div"
+    )
     return _preserve_emoticons(element) \
         .text_content() \
         .replace(u'\u00a0', ' ') \
@@ -97,7 +101,13 @@ class ForumSpider(CrawlSpider):
         ), callback="parse_page"),
     ]
 
+    def __init__(self, *args, **kwargs):
+        log.start()
+        super(ForumSpider, self).__init__()
+
     def parse_page(self, response):
+        self.log(response.body, level=0)
+
         l1 = ForumPostLoader(item=Post(), response=response)
 
         thread_url = PAGE_RE.sub('', response.url)
@@ -110,6 +120,8 @@ class ForumSpider(CrawlSpider):
         l1.add_value("thread_url", thread_url)
 
         for post_box in response.xpath("//table[@class='PostBox']"):
+            self.log(post_box.extract(), level=0)
+
             l2 = ForumPostLoader(item=l1.load_item().copy(), selector=post_box)
 
             l2.add_xpath("post_url", ".//a[@name]/@name", MapCompose(lambda s: response.url + '#' + s))

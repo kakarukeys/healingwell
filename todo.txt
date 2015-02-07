@@ -1,5 +1,19 @@
 Project roadmap is written in evernote, this is the backlog:
 
+respect robot rules
+
+
+
+
+
+
+
+
+
+
+
+
+
+DONE
 make sure no error during crawling and all extractions are done correctly
 allow update-crawl: get the newest posts, insert/update some records in db
-respect robot rules

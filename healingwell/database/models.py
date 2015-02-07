@@ -1,6 +1,6 @@
 import peewee as pw
 
-db = pw.PostgresqlDatabase(None) # path to be specified at runtime
+db = pw.PostgresqlDatabase(None, autorollback=True) # path to be specified at runtime
 
 
 #------------------------------

@@ -17,7 +17,7 @@ SPIDER_MODULES = ['healingwell.miner.spiders']
 NEWSPIDER_MODULE = 'healingwell.miner.spiders'
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'miner (+http://www.yourdomain.com)'
+USER_AGENT = 'healingwell data science (+http://www.javelin-consulting.com)'
 
 # The integer values you assign to classes in this setting determine the order they run in-
 # items go through pipelines from order number low to high.
