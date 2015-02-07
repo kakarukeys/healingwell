@@ -70,7 +70,7 @@ class ForumPostLoader(ItemLoader):
     default_output_processor = TakeFirst()
 
     post_content_in = clean_post_content
-    post_content_out = Join()
+    post_content_out = Join()   # join with a space
 
 
 class ForumSpider(CrawlSpider):

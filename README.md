@@ -22,4 +22,8 @@ open the file view_scraped_data.html to check the scraped data.
 
 Run this command to crawl:
 
-	scrapy crawl healingwell.com
+	scrapy crawl healingwell.com -s JOBDIR=crawls/
+
+To stop the spider, press Ctrl + C
+
+To resume crawling, run the same command again.

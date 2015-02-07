@@ -14,7 +14,6 @@ from healingwell.database.models import db, Post
 
 class StoragePipeline(object):
     def __init__(self):
-        # connect to database
         settings = get_project_settings()
 
         log.msg("Connecting to database {0}...".format(settings["POSTGRES"]["database"]))
@@ -22,6 +21,7 @@ class StoragePipeline(object):
         db.connect()
 
     def process_item(self, item, spider):
+        # insert or update
         try:
             Post.create(**item)
         except pw.IntegrityError:
