@@ -19,7 +19,7 @@ class Post(BaseModel):
     page_url = pw.CharField(max_length=100)
 
     post_url = pw.CharField(max_length=100, unique=True)
-    post_author = pw.CharField(max_length=30)
+    post_author = pw.CharField(max_length=50)
     post_author_url = pw.CharField(max_length=100)
     post_author_rank = pw.CharField(max_length=30)
     post_date = pw.DateTimeField()
